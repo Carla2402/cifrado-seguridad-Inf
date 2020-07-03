@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <style>
+        body{
+            background-color: turquoise;
+        }
+    </style>
+        <meta charset="utf-8">
+    <title>Cifrado</title>
+	<meta charset="utf-8">
+    <h4> C I F R A D O . : : C A R L A : : .</h4>
+    <h4> Introduce el texto, recuerda seguir este paso:</br>
+Paso 1:</br>
+El mensaje a cifrar debe estar acomodado de derecha a izquierda ejemplo:</br>
+Si el mensaje es: Hola amigos</br>
+Entonces queda: sogima aloh</br>
+despues preciona cifrar y listo</h4>
+	<script>
+		var cesar = cesar || (function() {
+			var doStaff = function (txt, desp, action) {
+				var replace = (function() {
+					var abc = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+						'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+					var l = abc.length;
+					return function(c) {
+						var i = abc.indexOf(c.toLowerCase());
+						if (i != 0) {
+							var pos = i;
+							if (action) {
+							
+								pos += desp;
+								pos -= (pos >= l)?l:0;
+							} else {
+								
+								pos -= desp;
+								pos += (pos < 0)?l:0;
+							}
+							return abc[pos];
+						}
+						return c;
+					};
+				})();
+				var re = (/([a-z])/ig);
+				return String(txt).replace(re, function (match) {
+					return replace(match);
+				});
+			};
+ 
+			return {
+					encode: function(txt, desp) {
+					return doStaff(txt, desp, true);
+				},
+					decode: function(txt, desp) {
+					return doStaff(txt, desp, false);
+				}
+			};
+		})();
+ 
+		function codificar()
+		{
+			document.getElementById("resultado").innerHTML=cesar.encode(document.getElementById("cadena").value, -7);
+		}
+		function decodificar()
+		{
+			document.getElementById("resultado").innerHTML=cesar.decode(document.getElementById("cadena").value, -7);
+		}
+             
+	</script>
+ 
+	<style>
+		textarea {width:400px;}
+	</style>
+</head>
+ 
+<body>
+ 
+<textarea id="cadena"></textarea>
+ 
+<p><input type="button" value="codificar" color="navy" onclick="codificar()"><input type="button" value="decodificar" onclick="decodificar()"></p>
+ 
+<div id="resultado"></div>
+ 
+</body>
+</html>
